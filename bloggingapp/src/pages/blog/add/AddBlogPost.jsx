@@ -3,21 +3,16 @@ import {Form, Container, Button} from 'react-bootstrap';
 
 import axios from 'axios';
 
-import {BACKEND_URL} from '../../../GlobalConfig';
-
 import './AddBlogPost.css';
-/**
- * TODO: Add image uploading possibility.
- * TODO: Implement a better way getting the alcoholPercent. Currently using a text field with no validation.
- */
+
 class AddBlogPost extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          beerName: "",
-          description: "",
-          alcoholPercent: 0.0
+          blogPostTitle: "",
+          blogPostAuthor: "",
+          blogPostContent: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -33,19 +28,19 @@ class AddBlogPost extends Component {
       event.preventDefault();
 
       let requestBody = {
-        beerName: this.state.beerName,
-        description: this.state.description,
-        alcoholPercent: this.state.alcoholPercent
+        title: this.state.blogPostTitle,
+        author: this.state.blogPostAuthor,
+        content: this.state.blogPostContent
       };
 
       console.log(JSON.stringify(requestBody));
 
       axios
         .put(
-          'beers/add',
+          'blog/add',
           JSON.stringify(requestBody)
         )
-      .then(r => alert("Succesfully added beer " + this.state.beerName + "."))
+      .then(r => alert("Succesfully added post " + this.state.blogPostTitle + "."))
       .catch(e => console.log(e));
     }
 
@@ -54,34 +49,34 @@ class AddBlogPost extends Component {
             <div id="addModifyBeer">
             <Container>
                 <Form onSubmit={this.handleSubmit}>
-                  <Form.Group controlId="beerName">
-                      <Form.Label>Beer name</Form.Label>
+                  <Form.Group controlId="blogPostTitle">
+                      <Form.Label>Title</Form.Label>
                       <Form.Control 
                         type="text"
-                        value={this.state.beerName}
+                        value={this.state.blogPostTitle}
                         onChange={this.handleChange}
                       />
                   </Form.Group>
-                  <Form.Group controlId="description">
-                      <Form.Label>Description</Form.Label>
+                  <Form.Group controlId="blogPostAuthor">
+                      <Form.Label>Author</Form.Label>
+                      <Form.Control 
+                        type="text"
+                        value={this.state.blogPostAuthor}
+                        onChange={this.handleChange}
+                      />
+                  </Form.Group>
+                  <Form.Group controlId="blogPostContent">
+                      <Form.Label>Content</Form.Label>
                       <Form.Control
                         as="textarea"
-                        rows="3"
-                        maxLength="1000"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                      />
-                  </Form.Group>
-                  <Form.Group controlId="alcoholPercent">
-                      <Form.Label>Alchohol Percent</Form.Label>
-                      <Form.Control 
-                        type="text"
-                        value={this.state.alcoholPercent}
+                        rows="4"
+                        maxLength="3000"
+                        value={this.state.blogPostContent}
                         onChange={this.handleChange}
                       />
                   </Form.Group>
                   <div id="buttons">
-                    <Button variant="success" type="submit">Add beer</Button>
+                    <Button variant="success" type="submit">Add blog post</Button>
                   </div>
                 </Form>
               </Container>

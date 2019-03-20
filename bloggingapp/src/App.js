@@ -26,7 +26,7 @@ class App extends Component {
           <Switch>
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <Route exact path = '/' component = {BloggingApp}/>}
-            <Route exact path = '/cpanel/add' component = {AddPost}/>
+            <PrivateRoute exact path = '/blog/add' component = {AddPost}/>
             <Redirect from='*' to='/404' />
           </Switch>
         </div>

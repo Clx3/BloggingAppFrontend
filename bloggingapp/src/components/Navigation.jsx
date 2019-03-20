@@ -41,7 +41,6 @@ export class Navigation extends Component {
     }
 
     renderLinks(){
-      //console.log(NavObjects);
       let ret = [];
       for(let title in NavObjects){
         ret.push(<LinkContainer to={NavObjects[title]}>
@@ -62,22 +61,21 @@ export class Navigation extends Component {
             {this.renderLogout()}
           <Navbar expand="md" bg="light" variant="light" fixed="top" collapseOnSelect="true">
             <LinkContainer to="/">
-              <Navbar.Brand>Maisteluapp</Navbar.Brand>
+              <Navbar.Brand>Blogging app</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                   {this.renderLinks()}
-                  </Nav>
-                  
-                    <Navbar.Text>Signed in as: #TODO</Navbar.Text>
-                    <NavDropdown title="Manage app" id="basic-nav-dropdown">
-                    <LinkContainer to="/tastingapp/beers/add">
-                    <NavDropdown.Item>Add beer</NavDropdown.Item>
-                    </LinkContainer>
-                  
-                    <NavDropdown.Item>Create tasting session</NavDropdown.Item>
-                    </NavDropdown>
+                  </Nav>               
+                  <Navbar.Text>Signed in as: #TODO</Navbar.Text>
+                  <NavDropdown title="Control Panel" id="basic-nav-dropdown">
+
+                  <LinkContainer to="/blog/add">
+                  <NavDropdown.Item>Create blog post</NavDropdown.Item>
+                  </LinkContainer>
+
+                  </NavDropdown>
               <Nav.Link onClick={this.handleLogOut}>Log out</Nav.Link>
             </Navbar.Collapse>
           </Navbar>
