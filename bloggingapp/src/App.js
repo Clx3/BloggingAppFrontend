@@ -1,26 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route} from 'react-router-dom'
+
+import PrivateRoute from './components/PrivateRoute'
+import {Navigation} from "./components/Navigation";
+import { Redirect } from 'react-router-dom'
+
+import axios from 'axios';
+
+import LoginAndSignup from "./pages/loginAndSignup/loginAndSignup";
+import BloggingApp from "./pages/bloggingApp/blog";
+import AddPost from './pages/blog/add/AddBlogPost';
 
 class App extends Component {
+
+  componentWillMount() {
+    axios.defaults.baseURL = 'http://localhost:8080/';
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    axios.defaults.headers.put['Content-Type'] = 'application/json';
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div>
+          <Navigation/>
+          <Switch>
+            <Route exact path = '/login' component = {LoginAndSignup}/>  
+            <Route exact path = '/' component = {BloggingApp}/>}
+            <PrivateRoute exact path = '/cpanel/add' component = {AddPost}/>
+            <Redirect from='*' to='/404' />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
