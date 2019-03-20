@@ -13,12 +13,7 @@ class BloggingApp extends Component {
             user: ''
         }
     }
-
-    componentWillMount() {
-        //if(this.state.user === '')
-           // this.props.router.push('/')
-    }
-
+    
     render() {
         return (
             <div>

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
 import {Navigation} from "./components/Navigation";
-import { Redirect } from 'react-router-dom'
 
 import axios from 'axios';
 
 import LoginAndSignup from "./pages/loginAndSignup/loginAndSignup";
-import BloggingApp from "./pages/bloggingApp/blog";
+import BloggingApp from "./pages/bloggingApp/BloggingApp";
 import AddPost from './pages/blog/add/AddBlogPost';
 
 class App extends Component {
@@ -27,7 +26,7 @@ class App extends Component {
           <Switch>
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <Route exact path = '/' component = {BloggingApp}/>}
-            <PrivateRoute exact path = '/cpanel/add' component = {AddPost}/>
+            <Route exact path = '/cpanel/add' component = {AddPost}/>
             <Redirect from='*' to='/404' />
           </Switch>
         </div>
