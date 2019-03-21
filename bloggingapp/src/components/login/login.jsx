@@ -39,7 +39,7 @@ class Login extends Component {
 
     let parent = this;
 
-    fetch(BACKEND_URL + 'auth/', {
+    fetch(BACKEND_URL + 'users/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(requestBody)
@@ -49,7 +49,7 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
-          parent.props.history.push("/tastingapp");
+          parent.props.history.push("/");
         });
 
       } else if(response.status === 401) {

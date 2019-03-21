@@ -34,7 +34,11 @@ class Signup extends Component {
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(reqBody)
     })
-      .then((result) => result.json())
+      .then((result) => {
+      result.json();
+      if(result.status === 200)
+      alert("Signup succesful")
+      })
       .then((info) => {console.log(info)})
   }
 
