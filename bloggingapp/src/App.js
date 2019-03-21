@@ -27,7 +27,7 @@ class App extends Component {
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <Route exact path = '/' component = {BloggingApp}/>}
             <PrivateRoute exact path = '/blog/add' component = {AddPost}/>
-            <Redirect from='*' to='/404' />
+            
           </Switch>
         </div>
       </BrowserRouter>
@@ -36,3 +36,4 @@ class App extends Component {
 }
 
 export default App;
+//<Redirect from='*' to='/404' />

@@ -59,7 +59,7 @@ export class Navigation extends Component {
         return (
           <div>
             {this.renderLogout()}
-          <Navbar expand="md" bg="light" variant="light" fixed="top" collapseOnSelect="true">
+          <Navbar expand="md" bg="light" variant="light" collapseOnSelect="true">
             <LinkContainer to="/">
               <Navbar.Brand>Blogging app</Navbar.Brand>
             </LinkContainer>
