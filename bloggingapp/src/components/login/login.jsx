@@ -39,7 +39,7 @@ class Login extends Component {
 
     let parent = this;
 
-    fetch(BACKEND_URL + 'users/login', {
+    fetch(BACKEND_URL + 'auth/', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(requestBody)
@@ -49,6 +49,8 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
+          Cookies.set("user", json.user);
+          Cookies.set("admin", json.admin);
           parent.props.history.push("/");
         });
 
@@ -56,7 +58,7 @@ class Login extends Component {
         alert("Invalid username or password");
       }
     });
-    //this.props.history.push('/tastingapp');
+    
   };
 
 

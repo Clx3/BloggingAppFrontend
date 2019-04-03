@@ -14,10 +14,12 @@ export class Navigation extends Component {
       this.handleLogOut = this.handleLogOut.bind(this);
       this.renderLogout = this.renderLogout.bind(this);
       this.renderLinks = this.renderLinks.bind(this);
+      this.redirectLogIn = this.redirectLogIn.bind(this);
+      this.renderManagement = this.renderManagement.bind(this);
       this.NavObjects = NavObjects;
       this.state = {
         isOpen: false,
-        logout: false
+        loggedIn: false
       };
     }
     toggle() {
@@ -29,15 +31,30 @@ export class Navigation extends Component {
     handleLogOut = event => {
       console.log(Cookies.get("token"));
       Cookies.remove("token");
+      Cookies.remove("user");
+      Cookies.remove("admin");
       console.log("removed");
-      this.setState({"logout":true});
+      this.setState({'loggedIn': false})
     };
 
     renderLogout(){
-      if(this.state.logout){
-        this.setState({"logout": false});
-        return (<Redirect to="/login"/>);
+      if(this.state.loggedIn === true){
+        return (<Nav.Link onClick={this.handleLogOut}>Log out</Nav.Link>);
+      } else {
+        return (<Nav.Link onClick={this.redirectLogIn}>Log in</Nav.Link>);
       }
+    }
+
+    componentWillMount(){
+      if(Cookies.get('token') !== undefined){
+        this.setState({'loggedIn': true})
+      } else {
+        this.setState({'loggedIn': true})
+      }
+    }
+
+    redirectLogIn(){
+      window.location = '/login'
     }
 
     renderLinks(){
@@ -51,6 +68,28 @@ export class Navigation extends Component {
     
     }
 
+    getUser(){
+      if(Cookies.get("user") !== undefined){
+        return Cookies.get("user")
+      } else {
+        return "none"
+      }
+    }
+
+    renderManagement(){
+      if(Cookies.get('admin') === 'true'){
+        return (<NavDropdown title="Control Panel" id="basic-nav-dropdown">
+
+        <LinkContainer to="/blog/add">
+        <NavDropdown.Item>Create blog post</NavDropdown.Item>
+        </LinkContainer>
+
+        </NavDropdown>);
+      } else {
+        return null;
+      }
+    }
+
     render() {
       /* Disbales navbar in login page */
       if (window.location.pathname === '/login') {
@@ -58,7 +97,7 @@ export class Navigation extends Component {
       } else {
         return (
           <div>
-            {this.renderLogout()}
+            
           <Navbar expand="md" bg="light" variant="light" collapseOnSelect="true">
             <LinkContainer to="/">
               <Navbar.Brand>Blogging app</Navbar.Brand>
@@ -68,15 +107,9 @@ export class Navigation extends Component {
                 <Nav className="mr-auto">
                   {this.renderLinks()}
                   </Nav>               
-                  <Navbar.Text>Signed in as: #TODO</Navbar.Text>
-                  <NavDropdown title="Control Panel" id="basic-nav-dropdown">
-
-                  <LinkContainer to="/blog/add">
-                  <NavDropdown.Item>Create blog post</NavDropdown.Item>
-                  </LinkContainer>
-
-                  </NavDropdown>
-              <Nav.Link onClick={this.handleLogOut}>Log out</Nav.Link>
+                  <Navbar.Text>Signed in as: {this.getUser()}</Navbar.Text>
+                  {this.renderManagement()}
+                  {this.renderLogout()}
             </Navbar.Collapse>
           </Navbar>
         </div>

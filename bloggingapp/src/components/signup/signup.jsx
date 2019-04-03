@@ -27,18 +27,14 @@ class Signup extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    let reqBody = {username: this.state.username, password: this.state.password};
+    let reqBody = {username: this.state.username, password: this.state.password, isAdmin: false};
 
     fetch(BACKEND_URL + 'users/', {
       method: "PUT",
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(reqBody)
     })
-      .then((result) => {
-      result.json();
-      if(result.status === 200)
-      alert("Signup succesful")
-      })
+      .then((result) => result.json())
       .then((info) => {console.log(info)})
   }
 
