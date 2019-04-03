@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Card, Container } from "react-bootstrap";
 import axios from 'axios';
 import "./BloggingApp.css";
+import { withRouter } from 'react-router-dom';
 
 /**
  * TODO: Route this page so this and all of its child pages/components can only
@@ -13,6 +14,7 @@ class BloggingApp extends Component {
         super(props);
         this.renderPosts = this.renderPosts.bind(this);
         this.fetchPosts = this.fetchPosts.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             allPosts: []
         }
@@ -28,7 +30,10 @@ class BloggingApp extends Component {
             catch((error) => console.log(error));
     }
 
-
+    handleRedirect = event => {
+        console.log(event.target.id)
+        this.props.history.push('blog/' + event.target.id);
+    }
     renderPosts(){
         
         const kona = this.state.allPosts.map((d) => (
@@ -41,6 +46,7 @@ class BloggingApp extends Component {
                 <Card.Text>
                 {d.content}
                 </Card.Text>
+                <Card.Link href='#' id={d.id} onClick={this.handleRedirect}>View comments</Card.Link>
             </Card.Body>
         </Card>
         </Container>
@@ -59,4 +65,4 @@ class BloggingApp extends Component {
     }
 }
 
-export default BloggingApp;
+export default withRouter(BloggingApp);
