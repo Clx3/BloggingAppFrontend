@@ -9,6 +9,7 @@ import axios from 'axios';
 import LoginAndSignup from "./pages/loginAndSignup/loginAndSignup";
 import BloggingApp from "./pages/bloggingApp/BloggingApp";
 import AddPost from './pages/blog/add/AddBlogPost';
+import SingleBlogPage from './pages/blog/SingleBlogPage/SingleBlogPage';
 
 class App extends Component {
 
@@ -27,7 +28,7 @@ class App extends Component {
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <Route exact path = '/' component = {BloggingApp}/>}
             <PrivateRoute exact path = '/blog/add' component = {AddPost}/>
-            
+            <Route exact path = '/blog/:id' component ={SingleBlogPage}/>
           </Switch>
         </div>
       </BrowserRouter>

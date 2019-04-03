@@ -1,0 +1,25 @@
+.form-control {
+    text-align: start;
+}
+
+#blogContainer {
+    width: 100%;
+    padding-top: 1%;
+    left: 50%;
+
+}
+
+h2 {
+    color: #f5f5f5;
+}
+
+h6 {
+    color: #f5f5f5;
+    text-align: center;
+    padding-top: 10%;
+}
+.formTexts{
+    color: black;
+    text-align: start;
+    padding-left: 5px;
+}
