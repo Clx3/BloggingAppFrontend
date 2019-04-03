@@ -4,9 +4,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
 import { Redirect } from 'react-router-dom';
 import { NavObjects } from './NavObjects.js';
+import { withRouter } from 'react-router-dom';
 
 
-export class Navigation extends Component {
+class Navigation extends Component {
     constructor(props) {
       super(props);
   
@@ -54,7 +55,7 @@ export class Navigation extends Component {
     }
 
     redirectLogIn(){
-      window.location = '/login'
+      this.props.history.push('/login')
     }
 
     renderLinks(){
@@ -118,6 +119,7 @@ export class Navigation extends Component {
     }
   }
 
+  export default withRouter(Navigation)
   /*
   <LinkContainer to="/tastingapp/beers">
                   <Nav.Link>Beers</Nav.Link>

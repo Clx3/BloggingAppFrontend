@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
-import {Navigation} from "./components/Navigation";
+import Navigation from "./components/Navigation";
 
 import axios from 'axios';
 

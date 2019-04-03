@@ -24,6 +24,7 @@ class CommentForm extends Component {
 
 
     handleSubmit = event => {
+      event.preventDefault();
     const form = event.currentTarget;
     console.log(form.name.value)
     if (form.checkValidity() === false) {
