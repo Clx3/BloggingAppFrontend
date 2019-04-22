@@ -32,7 +32,8 @@ class BloggingApp extends Component {
 
     handleRedirect = event => {
         console.log(event.target.id)
-        this.props.history.push('blog/' + event.target.id);
+        event.preventDefault();
+        this.props.history.push('/blog/' + event.target.id);
     }
     renderPosts(){
         

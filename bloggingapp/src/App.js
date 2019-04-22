@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
+import { HashRouter, Switch, Route, Redirect} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
 import Navigation from "./components/Navigation";
@@ -21,7 +21,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div>
           <Navigation/>
           <Switch>
@@ -31,7 +31,7 @@ class App extends Component {
             <Route exact path = '/blog/:id' component ={SingleBlogPage}/>
           </Switch>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
