@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, Row, Col} from "react-bootstrap";
 import {BACKEND_URL} from '../../GlobalConfig';
+import md5 from 'js-md5';
 
 class Signup extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Signup extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    let reqBody = {username: this.state.username, password: this.state.password, isAdmin: false};
+    let reqBody = {username: this.state.username, password: md5(this.state.password), isAdmin: false};
 
     fetch(BACKEND_URL + 'users/', {
       method: "PUT",

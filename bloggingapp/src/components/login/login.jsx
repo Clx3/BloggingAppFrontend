@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
 import Cookies from "js-cookie";
+import md5 from 'js-md5';
 
 class Login extends Component {
   constructor(props) {
@@ -34,9 +35,9 @@ class Login extends Component {
 
     let requestBody = {
       username: this.state.username,
-      password: this.state.password
+      password: md5(this.state.password)
     };
-
+    
     let parent = this;
 
     fetch(BACKEND_URL + 'auth/', {
