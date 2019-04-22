@@ -39,7 +39,7 @@ class Navigation extends Component {
     };
 
     renderLogout(){
-      if(this.state.loggedIn === true){
+      if(Cookies.get('token') !== undefined){
         return (<Nav.Link onClick={this.handleLogOut}>Log out</Nav.Link>);
       } else {
         return (<Nav.Link onClick={this.redirectLogIn}>Log in</Nav.Link>);
@@ -50,7 +50,7 @@ class Navigation extends Component {
       if(Cookies.get('token') !== undefined){
         this.setState({'loggedIn': true})
       } else {
-        this.setState({'loggedIn': true})
+        this.setState({'loggedIn': false})
       }
     }
 
