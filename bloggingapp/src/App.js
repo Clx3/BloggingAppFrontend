@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Redirect} from 'react-router-dom'
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import PrivateRoute from './components/PrivateRoute'
 import Navigation from "./components/Navigation";
@@ -24,6 +26,7 @@ class App extends Component {
       <HashRouter>
         <div>
           <Navigation/>
+          <ToastContainer />
           <Switch>
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <Route exact path = '/' component = {BloggingApp}/>}

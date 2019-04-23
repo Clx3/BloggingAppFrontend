@@ -4,6 +4,7 @@ import axios from 'axios';
 import "./BloggingApp.css";
 import { withRouter } from 'react-router-dom';
 import User from '../../utils/User';
+import {notificationSuccess, notificationError} from '../../components/Notification'
 
 /**
  * TODO: Route this page so this and all of its child pages/components can only
@@ -17,7 +18,7 @@ class BloggingApp extends Component {
         this.fetchPosts = this.fetchPosts.bind(this);
         this.handleRedirect = this.handleRedirect.bind(this);
         this.deleteBlogpost = this.deleteBlogpost.bind(this);
-        
+
         this.state = {
             user: new User(),
             allPosts: []
@@ -49,10 +50,12 @@ class BloggingApp extends Component {
       this.state.user.deleteBlogpostAdmin(id)
       .then((response) => {
         if(response.status === 200) {
+          notificationSuccess("Blog post deleted succesfully!");
           this.fetchPosts();
         }
       }).catch((error) => {
         console.log(error);
+        notificationError("Error while deleting blog post!");
       });
     }
 
