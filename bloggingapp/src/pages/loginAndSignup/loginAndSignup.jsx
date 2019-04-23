@@ -8,7 +8,7 @@ class LoginAndSignup extends Component {
 
   constructor(props) {
     super(props);
-
+    console.log(props);
     this.state = {
       showLogin: true,
       header6Text: "Dont have an account? Click here to register:",

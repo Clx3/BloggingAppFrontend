@@ -10,7 +10,6 @@ import md5 from 'js-md5';
 class Login extends Component {
   constructor(props) {
     super(props);
-
     this.state = {username: "", password: ""};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -23,8 +22,6 @@ class Login extends Component {
       && this.state.username.length < 20
       && this.state.password.length > 0;
   }
-
-
 
   handleChange = event => {
     this.setState({[event.target.id]: event.target.value});

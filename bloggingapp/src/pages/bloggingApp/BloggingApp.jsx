@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Button, Row, Col} from "react-bootstrap";
 import axios from 'axios';
 import "./BloggingApp.css";
 import { withRouter } from 'react-router-dom';
+import User from '../../utils/User';
 
 /**
  * TODO: Route this page so this and all of its child pages/components can only
@@ -15,9 +16,14 @@ class BloggingApp extends Component {
         this.renderPosts = this.renderPosts.bind(this);
         this.fetchPosts = this.fetchPosts.bind(this);
         this.handleRedirect = this.handleRedirect.bind(this);
+        this.deleteBlogpost = this.deleteBlogpost.bind(this);
         this.state = {
+            user: new User(),
             allPosts: []
         }
+
+        console.log(this.state.user);
+        console.log(this.state.user.isAdminUser());
     }
 
     componentWillMount(){
@@ -35,7 +41,32 @@ class BloggingApp extends Component {
         event.preventDefault();
         this.props.history.push('/blog/' + event.target.id);
     }
+
+    /**
+     * Deletes a blog post with wanted id
+     * @param {} id 
+     */
+    deleteBlogpost(id) {
+      this.state.user.deleteBlogpostAdmin(id)
+      .then((response) => {
+        if(response.status === 200) {
+          this.fetchPosts();
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+
     renderPosts(){
+
+        const createAdminButtons = (blogpostId) => {
+          if(this.state.user.isAdminUser())
+            return (
+              <Button variant="danger" onClick={() => this.deleteBlogpost(blogpostId)}>Delete</Button>
+            );
+          else
+            return '';
+        }
         
         const kona = this.state.allPosts.map((d) => (
         <Container id="blogContainer">
@@ -47,7 +78,14 @@ class BloggingApp extends Component {
                 <Card.Text>
                 {d.content}
                 </Card.Text>
-                <Card.Link href='#' id={d.id} onClick={this.handleRedirect}>View comments</Card.Link>
+                <Row>
+                  <Col>
+                    <Card.Link href='#' id={d.id} onClick={this.handleRedirect}>View comments</Card.Link>
+                  </Col>
+                  <Col className="text-right">
+                    {createAdminButtons(d.id)}
+                  </Col>
+                </Row>
             </Card.Body>
         </Card>
         </Container>
