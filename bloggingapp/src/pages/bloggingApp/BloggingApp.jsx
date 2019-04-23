@@ -82,7 +82,7 @@ class BloggingApp extends Component {
                 </Card.Text>
                 <Row>
                   <Col>
-                    <Card.Link href='#' id={d.id} onClick={this.handleRedirect}>View comments</Card.Link>
+                    <Button id={d.id} onClick={this.handleRedirect} variant="primary">View</Button>
                   </Col>
                   <Col className="text-right">
                     {createAdminButtons(d.id)}
