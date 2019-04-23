@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import { Card, Container } from "react-bootstrap";
+import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import axios from 'axios';
 import "./SingleBlogPage.css";
 import Comments from './Comments';
+import User from '../../../utils/User';
+import { notificationSuccess } from '../../../components/Notification';
 
 /**
  * TODO: Route this page so this and all of its child pages/components can only
@@ -12,11 +14,17 @@ import Comments from './Comments';
 class SingleBlogPage extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            user: new User(),
+            blogPost: {},
+            blogPostLikes: 0
+        }
+
         this.renderPost = this.renderPost.bind(this);
         this.fetchPost = this.fetchPost.bind(this);
-        this.state = {
-            blogPost: {},
-        }
+        this.fetchLikes = this.fetchLikes.bind(this);
+        this.likeThisBlogPost = this.likeThisBlogPost.bind(this);
     }
 
     componentWillMount(){
@@ -25,8 +33,31 @@ class SingleBlogPage extends Component {
 
     fetchPost(){
         axios.get("/blog/" + this.props.match.params.id)
-            .then((response) => this.setState({blogPost: response.data})).
+            .then((response) => {
+              this.setState({blogPost: response.data});
+              this.fetchLikes();
+            }).
             catch((error) => console.log(error));
+    }
+
+    fetchLikes() {
+      axios.get("/like/count/" + this.state.blogPost.id)
+        .then((response) => {
+
+          if(response.status === 200)
+            this.setState({blogPostLikes: response.data})
+
+        }).catch(error => console.log(error));
+    }
+
+    likeThisBlogPost() {
+      this.state.user.likeBlogPost(this.state.blogPost.id)
+        .then((response) => {
+          if(response.status === 200) {
+            notificationSuccess("Succesfully liked this blog post!");
+            this.fetchLikes();
+          }
+        });
     }
 
     renderPost(){
@@ -38,8 +69,14 @@ class SingleBlogPage extends Component {
                     <Card.Title>{this.state.blogPost.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{this.state.blogPost.author}</Card.Subtitle>
                     <Card.Text>
-                    {this.state.blogPost.content}
+                        {this.state.blogPost.content}
                     </Card.Text>
+                    <Row id="likes" className="justify-content-center">
+                      <div>
+                        <Card.Text>Likes: {this.state.blogPostLikes}</Card.Text>
+                        <Button variant="success" onClick={this.likeThisBlogPost}>Like</Button>
+                      </div>
+                    </Row>
                 </Card.Body>
             </Card>
             

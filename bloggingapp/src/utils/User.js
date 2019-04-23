@@ -23,6 +23,18 @@ class User {
     }
 
     /**
+     * Makes an axios call to post a like to a blog post.
+     * @param {*} id 
+     */
+    likeBlogPost(id) {
+        let requestBody = {
+            blogpostId: id
+        };
+
+        return axios.post('/like/', requestBody);
+    }
+
+    /**
      * Makes an axios call to delete a blogpost by its id.
      * 
      * @param {*} id 
