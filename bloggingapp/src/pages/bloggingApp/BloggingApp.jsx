@@ -17,13 +17,11 @@ class BloggingApp extends Component {
         this.fetchPosts = this.fetchPosts.bind(this);
         this.handleRedirect = this.handleRedirect.bind(this);
         this.deleteBlogpost = this.deleteBlogpost.bind(this);
+        
         this.state = {
             user: new User(),
             allPosts: []
         }
-
-        console.log(this.state.user);
-        console.log(this.state.user.isAdminUser());
     }
 
     componentWillMount(){
@@ -44,6 +42,7 @@ class BloggingApp extends Component {
 
     /**
      * Deletes a blog post with wanted id
+     * 
      * @param {} id 
      */
     deleteBlogpost(id) {
