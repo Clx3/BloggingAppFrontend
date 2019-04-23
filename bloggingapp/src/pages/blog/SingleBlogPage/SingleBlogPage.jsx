@@ -72,9 +72,9 @@ class SingleBlogPage extends Component {
                         {this.state.blogPost.content}
                     </Card.Text>
                     <Row id="likes" className="justify-content-center">
-                      <div>
+                      <div className="text-center">
+                        <Button variant="success" onClick={this.likeThisBlogPost} className="mb-2">Like</Button>
                         <Card.Text>Likes: {this.state.blogPostLikes}</Card.Text>
-                        <Button variant="success" onClick={this.likeThisBlogPost}>Like</Button>
                       </div>
                     </Row>
                 </Card.Body>

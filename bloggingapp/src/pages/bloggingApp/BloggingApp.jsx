@@ -11,18 +11,21 @@ import {notificationSuccess, notificationError} from '../../components/Notificat
  * be viewed/rendered if the user is authenticated.
  */
 
+const MAXIMUM_CONTENT_LENGTH = 350;
+
 class BloggingApp extends Component {
     constructor(props) {
         super(props);
-        this.renderPosts = this.renderPosts.bind(this);
-        this.fetchPosts = this.fetchPosts.bind(this);
-        this.handleRedirect = this.handleRedirect.bind(this);
-        this.deleteBlogpost = this.deleteBlogpost.bind(this);
 
         this.state = {
             user: new User(),
             allPosts: []
         }
+
+        this.renderPosts = this.renderPosts.bind(this);
+        this.fetchPosts = this.fetchPosts.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
+        this.deleteBlogpost = this.deleteBlogpost.bind(this);
     }
 
     componentWillMount(){
@@ -78,7 +81,7 @@ class BloggingApp extends Component {
                 <Card.Title>{d.title}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{d.author}</Card.Subtitle>
                 <Card.Text>
-                {d.content}
+                {d.content.length <= MAXIMUM_CONTENT_LENGTH ? d.content : d.content.slice(0, MAXIMUM_CONTENT_LENGTH) + '...'}
                 </Card.Text>
                 <Row>
                   <Col>
