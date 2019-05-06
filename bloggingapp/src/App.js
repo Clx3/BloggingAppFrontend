@@ -16,7 +16,7 @@ import SingleBlogPage from './pages/blog/SingleBlogPage/SingleBlogPage';
 class App extends Component {
 
   componentWillMount() {
-    axios.defaults.baseURL = 'http://localhost:8080/';
+    //axios.defaults.baseURL = window.location.hostname;
     axios.defaults.headers.post['Content-Type'] = 'application/json';
     axios.defaults.headers.put['Content-Type'] = 'application/json';
   }
